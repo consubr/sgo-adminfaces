@@ -18,9 +18,11 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.faces</artifactId>
-            <version>2.2.7</version>
+            <version>2.2.14</version>
+            <scope>runtime</scope>
         </dependency>
-        
+
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -58,9 +60,6 @@
             <scope>provided</scope>
         </dependency>
 		
-
-        <!-- API do JPA e EJB para o Admin Template (View de OptimisticLockException) 
-        TODO: Fork para depender apenas de Servlet/JSF -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -76,16 +75,27 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-template</artifactId>
-            <version>1.0.0-RC1</version>
-            <!-- Update lib
+            <version>1.0.0-20170409.194239-17</version>
+            <!-- end::dep-admin-template[] -->
             <exclusions>
-            <exclusion>
-                            <dependency>
-                                    <groupId>org.omnifaces</groupId>
-                                    <artifactId>omnifaces</artifactId>
-                            </dependency>
-                    </exclusion>
-            </exclusions> -->
+                <exclusion>
+                    <groupId>com.github.adminfaces</groupId>
+                    <artifactId>admin-theme</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- tag::dep-admin-theme[] -->
+        <dependency>
+            <groupId>com.github.adminfaces</groupId>
+            <artifactId>admin-theme</artifactId>
+            <version>1.0.0-20170415.172255-35</version>
+            <!--<classifier>dev</classifier> uncompressed theme.css -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.1.RC3</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
@@ -97,7 +107,7 @@
             <artifactId>font-awesome</artifactId>
             <version>4.7.0</version>
         </dependency>
-        <!-- 
+        <!--
                 Tomcat 8.5.4:
                 http://stackoverflow.com/a/39286497/2956677
                 https://github.com/omnifaces/omnifaces/issues/243
@@ -129,6 +139,12 @@
                 <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>${build.sourceDirectory}</directory>
+                            <targetPath>sources</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>
@@ -164,6 +180,12 @@
             <id>PrimeFaces-maven-lib</id>
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
+        </repository>
+        <repository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 </project>
